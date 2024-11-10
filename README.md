@@ -80,6 +80,6 @@ Once the application is set up, you can access it in your browser at `http://loc
 - **POST /records**: Submit a new speedrun record.
 - **GET /records/:id**: Fetch a specific record by its ID.
 - **GET /users/:id**: Fetch a user’s profile.
-- **GET /leaderboard**: Fetch the leaderboard, filtered by game, version, or category.
+- **GET /records/:id/filter**: Fetch the leaderboard, filtered by game, version, or category.
 - **POST /login**: User login.
 - **POST /register**: User registration.
