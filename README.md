@@ -47,7 +47,7 @@ Follow these steps to set up your own instance of Speed Hub:
 2. Navigate to the project folder:
 
    ```bash
-   cd speed-hub
+   cd CSIS228-Project
    ```
 
 3. Install dependencies:
