@@ -29,24 +29,12 @@ Follow these steps to set up your own instance of Speed Hub:
 
 ### Dependencies
 
-#### 1. **bcrypt** 
-   - Description: A library for hashing passwords securely.
-
-#### 2. **dotenv** 
-   - Description: Loads environment variables from a `.env` file into `process.env`.
-
-#### 3. **express** 
-   - Description: Fast, unopinionated, minimalist web framework for Node.js.
-
-#### 4. **express-validator** 
-   - Description: Middleware for validating and sanitizing input in Express.js.
-
-#### 5. **jsonwebtoken** 
-   - Description: A library for creating and verifying JSON Web Tokens (JWT).
-
-#### 6. **mysql2** 
-   - Description: MySQL client for Node.js with promise support.
-
+- bcrypt
+- dotenv
+- express
+- express-validator
+- jsonwebtoken
+- mysql2
 
 ### Steps
 
