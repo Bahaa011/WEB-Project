@@ -48,8 +48,6 @@ Follow these steps to set up your own instance of Speed Hub:
    npm install
    ```
 
-The application should now be running on `http://localhost:3000`.
-
 ## Setup
 
 ### Configuration
