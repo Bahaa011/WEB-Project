@@ -60,13 +60,13 @@ Follow these steps to set up your own instance of Speed Hub:
 
 ### Configuration
 
-- **Environment Variables**: Configure environment variables for production use (e.g., `DATABASE_URL`, `JWT_SECRET`).
+- **Environment Variables**: Configure environment variables for use (e.g., `DB_HOST`, `JWT_SECRET_KEY`).
 - **Authentication**: The site uses JWT tokens for secure authentication. Ensure you set up the appropriate JWT secret in your environment file.
   
 ### Example `.env` File:
 
 ```env
-DATABASE_URL=mysql://username:password@localhost:3306/speedhub
+DB_HOST=localhost
 JWT_SECRET=your_jwt_secret
 ```
 
