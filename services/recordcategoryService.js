@@ -29,7 +29,9 @@ class RecordCategoryService{
     async getAllRecordCategories(){
         try{
             const [rows] = await this.pool.query
-            (`SELECT * FROM record_categories;`);
+            (`SELECT record_id, rc.category_id, category_name
+            FROM record_categories rc
+            JOIN categories c ON rc.category_id = c.category_id`);
             return rows.map(RecordCategory.fromRow);
         } catch(error) {
             throw new Error();
@@ -46,7 +48,11 @@ class RecordCategoryService{
     async getRecordCategoryById(id){
         try{
             const [rows] = await this.pool.query
-            (`SELECT * FROM record_categories WHERE record_category_id = ?`,[id]);
+            (`SELECT record_id, rc.category_id, category_name
+            FROM record_categories rc
+            JOIN categories c ON rc.category_id = c.category_id
+            WHERE record_category_id = ?`,[id]);
+
             if (rows.length === 0) throw new Error(`Record category not found`);
             return RecordCategory.fromRow(rows[0]);
         } catch(error) {
@@ -145,8 +151,7 @@ class RecordCategoryService{
             // Update the record_category with the new category_id
             const [result] = await this.pool.query(
                 'UPDATE record_categories SET category_id = ? WHERE record_category_id = ?',
-                [categoryId, id]
-            );
+                [categoryId, id]);
     
             return result.affectedRows > 0;
         } catch (error) {
