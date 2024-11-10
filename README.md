@@ -16,7 +16,6 @@ Speed Hub is a website designed for the speedrunning community, where users can 
 1. [Installation](#installation)
 2. [Setup](#setup)
 3. [Usage](#usage)
-4. [API Documentation](#api-documentation)
 
 ## Installation
 
