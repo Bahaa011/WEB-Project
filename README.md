@@ -81,7 +81,7 @@ Once the application is set up, you can access it in your browser at `http://loc
 - **GET /records/:id**: Fetch a specific record by its ID.
 - **GET /users/:id**: Fetch a user’s profile.
 - **GET /records/:id/filter**: Fetch the leaderboard, filtered by game, version, or category.
-- **GET /games/search?q=** : Searches for a game by its name
-- **GET /users/search?q=** : Searches for a user by their username
+- **GET /games/search?q=** : Search for a game by its name
+- **GET /users/search?q=** : Search for a user by their username
 - **POST /login**: User login.
 - **POST /register**: User registration.
