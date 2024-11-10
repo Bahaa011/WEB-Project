@@ -48,22 +48,6 @@ Follow these steps to set up your own instance of Speed Hub:
    npm install
    ```
 
-4. Set up the database:
-   - Create a new MySQL/MariaDB database.
-   - Update the database connection settings in `config/database.js`.
-
-5. Run the migrations to set up the database schema:
-
-   ```bash
-   npm run migrate
-   ```
-
-6. Start the server:
-
-   ```bash
-   npm start
-   ```
-
 The application should now be running on `http://localhost:3000`.
 
 ## Setup
