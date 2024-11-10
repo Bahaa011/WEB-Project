@@ -20,9 +20,11 @@ class AuthController{
 
             const newUser = await authService.register({username, email, password});
             res.status(201).json({message: 'User registered successfully.',
-                user: newUser
-            });
+                user: newUser});
         } catch(error) {
+            if(error.message.includes('Account with this')){
+                return res.status(409).json({message: error.message})
+            }
             res.status(500).json({message: 'Internal server error'});
         }
     }

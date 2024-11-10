@@ -119,7 +119,7 @@ class UserController {
             res.json({ message: 'User updated successfully' });
         } catch (error) {
             if(error.message.includes(`already exists`)){
-                return res.status(400).json({message: error.message}); // handle descriptive errors
+                return res.status(409).json({message: error.message}); // handle descriptive errors
             }
             res.status(500).json({ message: 'Internal server error' });
         }
