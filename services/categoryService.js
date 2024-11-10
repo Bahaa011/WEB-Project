@@ -112,6 +112,7 @@ class CategoryService{
      */
     async updateCategory(id, categoryData) {
         try{
+            // Initialize an array to hold the fields to update and a values array
             const fields = [];
             const values = [];
 

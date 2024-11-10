@@ -145,7 +145,7 @@ class UserService{
      */
     async updateUser(id, userData) {
         try {
-            // Initialize an array to hold the fields to update and a corresponding values array
+            // Initialize an array to hold the fields to update and a values array
             const fields = [];
             const values = [];
     
@@ -185,18 +185,14 @@ class UserService{
                 fields.push('bio = ?');
                 values.push(userData.bio);
             }
-    
-            // Always update the 'updated_at' field when updating the user
+
             fields.push('updated_at = NOW()');
-             
-            // Add the user ID to the values array at the end
+
             values.push(id);
-    
-            // Execute the query
+
             const [result] = await this.pool.query
             (`UPDATE users SET ${fields.join(', ')} WHERE user_id = ?`, values);
     
-            // Check if any rows were updated
             return result.affectedRows > 0;
         } catch (error) {
             throw new Error(error);

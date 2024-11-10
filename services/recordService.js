@@ -50,16 +50,12 @@ class RecordService{
             ) rc ON r.record_id = rc.record_id
              ORDER BY record_id ASC`;
             
-            // Execute the query to fetch the data
             const [rows] = await this.pool.query(query);
-            
-            // Map the result to Record objects
+
             const records = rows.map(record => {
-                // Use the Record model to map the row to an instance of the Record class
+                
                 const recordWithCategories = Record.fromRow(record);
                 
-                // Categories are already included as a comma-separated string from GROUP_CONCAT
-                // You can convert it to an array if needed
                 recordWithCategories.categories = record.categories.split(', ').map(category => category.trim());
                 
                 return recordWithCategories;
@@ -99,22 +95,18 @@ class RecordService{
              WHERE r.record_id = ?
              ORDER BY record_id ASC`;
             
-            // Execute the query to fetch the data for a specific record
             const [rows] = await this.pool.query(query, [id]);
 
-            // If no record is found, return null or throw an error
             if (rows.length === 0) {
                 throw new Error('Record not found');
             }
 
-            // Map the result to a Record object
-            const record = Record.fromRow(rows[0]);  // Only one row should be returned for a single record
-            
-            // Categories are already included as a comma-separated string from GROUP_CONCAT
+            const record = Record.fromRow(rows[0]);
+
             // Convert it into an array
             record.categories = rows[0].categories.split(', ').map(category => category.trim());
             
-            return record; // Return the record with its categories
+            return record;
         } catch (error) {
             throw new Error(error);
         }
@@ -158,14 +150,12 @@ class RecordService{
                 queryParams.push(filters.versionId);
             }
     
-            // Always order by record_time (ascending - fastest time first)
+            // Always order by record_time
             baseQuery += ` GROUP BY r.record_id
                             ORDER BY r.record_time ASC`;
-    
-            // Execute the query with the dynamic SQL and parameters
+
             const [rows] = await this.pool.query(baseQuery, queryParams);
-    
-            // Check if no records were found
+
             if (rows.length === 0) {
                 throw new Error(`No records found`);
             }
@@ -255,6 +245,7 @@ class RecordService{
      */
     async updateRecord(id, recordData){
         try{
+            // Initialize an array to hold the fields to update and a values array
             const fields = [];
             const values = [];
 
@@ -272,6 +263,7 @@ class RecordService{
                     `SELECT game_id FROM records WHERE record_id = ?`,
                     [id]);
                 
+                // ensure they match
                 if (recordGameId[0].game_id !== versionGameId[0].game_id) {
                     throw new Error('Game ID and version ID are not compatible');
                 }
@@ -320,10 +312,8 @@ class RecordService{
      */
     async approveRecord(id) {
         try {
-            // Call the updateRecord method, passing the status as "Approved"
             const updated = await this.updateRecord(id, { status: 'Approved' });
     
-            // If the record was updated, return a success message or the updated record
             if (updated) {
                 return { message: 'Record approved successfully' };
             } else {
@@ -343,10 +333,8 @@ class RecordService{
      */
     async rejectRecord(id) {
         try {
-            // Call the updateRecord method, passing the status as "Rejected"
             const updated = await this.updateRecord(id, { status: 'Rejected' });
     
-            // If the record was updated, return a success message or the updated record
             if (updated) {
                 return { message: 'Record rejected successfully' };
             } else {

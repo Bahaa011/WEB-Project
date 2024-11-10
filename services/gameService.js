@@ -116,6 +116,7 @@ class GameService{
      */
     async updateGame(id, gameData){
         try{
+            // Initialize an array to hold the fields to update and a values array
             const fields = [];
             const values = [];
 

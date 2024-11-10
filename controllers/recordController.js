@@ -130,12 +130,10 @@ class RecordController {
      * @returns {Object} JSON response indicating the approval result.
      */
     async approveRecord(req, res) {
-        const { id } = req.params; // Extract the record ID from the URL params
+        const { id } = req.params;
         try {
-            // Call the approveRecord service method
             const result = await recordService.approveRecord(id);
 
-            // Send success response
             return res.status(201).json({message: result.message});
         } catch (error) {
             if(error.message.includes('Record approval failed')){
@@ -154,12 +152,10 @@ class RecordController {
      */
 
     async rejectRecord(req, res) {
-        const { id } = req.params; // Extract the record ID from the URL params
+        const { id } = req.params;
         try {
-            // Call the rejectedRecord service method
             const result = await recordService.rejectRecord(id);
 
-            // Send success response
             return res.status(201).json({message: result.message});
         } catch (error) {
             if(error.message.includes('Record rejection failed')){

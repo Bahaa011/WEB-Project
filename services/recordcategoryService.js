@@ -71,14 +71,18 @@ class RecordCategoryService{
                 (`SELECT game_id FROM records WHERE record_id = ?`,[recordId]);
             if(checkRecord.length === 0) throw new Error('Record id is invalid');
 
+            // get the records game_id
             const recordGameId = checkRecord[0].game_id;
 
             const [checkCategory] = await this.pool.query
                 (`SELECT game_id FROM categories WHERE category_id = ?`,[categoryId]);
             if(checkCategory.length === 0) throw new Error('Category id is invalid');
 
+            // get the categories game_id
             const categoryGameId = checkCategory[0].game_id;
 
+            // compare if the category's game_id matches the record's game_id
+            // if yes we throw an error
             if(recordGameId !== categoryGameId){
                 throw new Error('Record and Category belong to different games');
             }
@@ -112,6 +116,8 @@ class RecordCategoryService{
                 [categoryId]
             );
             if (checkCategory.length === 0) throw new Error('Category ID is invalid');
+
+            // get the category's game id
             const categoryGameId = checkCategory[0].game_id;
     
             // Retrieve the record_id associated with the given record_category_id
@@ -130,7 +136,8 @@ class RecordCategoryService{
             if (recordGame.length === 0) throw new Error('Record ID is invalid');
             const recordGameId = recordGame[0].game_id;
     
-            // Ensure both game IDs match
+            // compare if the category's game_id matches the record's game_id
+            // if yes we throw an error
             if (recordGameId !== categoryGameId) {
                 throw new Error('Record and Category belong to different games');
             }
