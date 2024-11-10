@@ -27,6 +27,35 @@ Follow these steps to set up your own instance of Speed Hub:
 - MySQL or MariaDB
 - npm (Node Package Manager)
 
+# Dependencies for Speedrun Hub Project
+
+The following dependencies are required to run the Speedrun Hub project:
+
+### 1. **bcrypt** 
+   - Version: ^5.1.1
+   - Description: A library for hashing passwords securely.
+
+### 2. **dotenv** 
+   - Version: ^16.4.5
+   - Description: Loads environment variables from a `.env` file into `process.env`.
+
+### 3. **express** 
+   - Version: ^4.21.1
+   - Description: Fast, unopinionated, minimalist web framework for Node.js.
+
+### 4. **express-validator** 
+   - Version: ^7.2.0
+   - Description: Middleware for validating and sanitizing input in Express.js.
+
+### 5. **jsonwebtoken** 
+   - Version: ^9.0.2
+   - Description: A library for creating and verifying JSON Web Tokens (JWT).
+
+### 6. **mysql2** 
+   - Version: ^3.11.3
+   - Description: MySQL client for Node.js with promise support.
+
+
 ### Steps
 
 1. Clone the repository:
