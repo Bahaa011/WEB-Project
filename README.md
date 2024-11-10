@@ -1,5 +1,5 @@
 
-# Speed Hub - Speedrun Records Platform
+# Speed Hub - Speedrun Platform
 
 Speed Hub is a website designed for the speedrunning community, where users can share and track their speedrun records across multiple games. It supports features like leaderboard tracking, video proof submissions, user registrations, and more. The platform is designed to provide an organized and comprehensive system for the speedrunning community to record, verify, and compare their achievements.
 
