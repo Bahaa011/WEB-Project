@@ -39,7 +39,7 @@ class CategoryController {
             res.json(category);
         } catch (error) {
             if(error.message.includes('Category not found')){
-                res.status(404).json({ message: error.message }); 
+                return res.status(404).json({ message: error.message }); 
             }
             res.status(500).json({ message: 'Internal server error' });
         }

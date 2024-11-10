@@ -31,7 +31,7 @@ class GameVersionService{
             const [rows] = await this.pool.query
             (`SELECT * FROM game_versions;`);
             return rows.map(GameVersion.fromRow);
-        } catch(e) {
+        } catch(error) {
             throw new Error();
         }
     }
@@ -49,7 +49,7 @@ class GameVersionService{
             (`SELECT * FROM game_versions WHERE version_id = ?`,[id]);
             if (rows.length === 0) throw new Error('Game version not found');
             return GameVersion.fromRow(rows[0]);
-        } catch(e) {
+        } catch(error) {
             throw new Error(error);
         }
     }
@@ -66,8 +66,8 @@ class GameVersionService{
             const [rows] = await this.pool.query
             (`SELECT * FROM game_versions WHERE game_id = ?`,[id]);
             if (rows.length === 0) throw new Error('Game version not found');
-            return GameVersion.fromRow(rows[0]);
-        } catch(e) {
+            return rows.map(GameVersion.fromRow);
+        } catch(error) {
             throw new Error(error);
         }
     }

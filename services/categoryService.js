@@ -47,6 +47,7 @@ class CategoryService{
         try{
             const [rows] = await this.pool.query
             (`SELECT * FROM categories WHERE category_id = ?`,[id]);
+
             if (rows.length === 0) throw new Error('Category not found');
             return Category.fromRow(rows[0]);
         } catch(error) {
@@ -66,7 +67,7 @@ class CategoryService{
             const [rows] = await this.pool.query
             (`SELECT * FROM categories where game_id = ?`,[id]);
             if (rows.length === 0) throw new Error('Category not found');
-            return Category.fromRow(rows[0])
+            return rows.map(Category.fromRow);
         } catch(error){
             throw new Error(error);
         }

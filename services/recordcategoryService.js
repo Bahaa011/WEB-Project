@@ -31,7 +31,7 @@ class RecordCategoryService{
             const [rows] = await this.pool.query
             (`SELECT * FROM record_categories;`);
             return rows.map(RecordCategory.fromRow);
-        } catch(e) {
+        } catch(error) {
             throw new Error();
         }
     }
@@ -49,7 +49,7 @@ class RecordCategoryService{
             (`SELECT * FROM record_categories WHERE record_category_id = ?`,[id]);
             if (rows.length === 0) throw new Error(`Record category not found`);
             return RecordCategory.fromRow(rows[0]);
-        } catch(e) {
+        } catch(error) {
             throw new Error(error);
         }
     }
@@ -72,13 +72,12 @@ class RecordCategoryService{
             if(checkRecord.length === 0) throw new Error('Record id is invalid');
 
             const recordGameId = checkRecord[0].game_id;
-            console.log(recordGameId)
+
             const [checkCategory] = await this.pool.query
                 (`SELECT game_id FROM categories WHERE category_id = ?`,[categoryId]);
             if(checkCategory.length === 0) throw new Error('Category id is invalid');
 
             const categoryGameId = checkCategory[0].game_id;
-            console.log(categoryGameId);
 
             if(recordGameId !== categoryGameId){
                 throw new Error('Record and Category belong to different games');
@@ -144,7 +143,7 @@ class RecordCategoryService{
     
             return result.affectedRows > 0;
         } catch (error) {
-            throw new Error(error.message || error);
+            throw new Error(error);
         }
     }
 
