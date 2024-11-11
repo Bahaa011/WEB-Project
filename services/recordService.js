@@ -135,7 +135,7 @@ class RecordService{
                 JOIN game_versions gv ON r.version_id = gv.version_id
                 LEFT JOIN record_categories rc ON r.record_id = rc.record_id
                 LEFT JOIN categories c ON rc.category_id = c.category_id
-                WHERE r.game_id = ?`;
+                WHERE r.game_id = ? and r.status = 'Approved '`;
     
             const queryParams = [gameId];
     
