@@ -69,7 +69,7 @@ class GameService{
             const values = [`%${searchTerm}%`];
 
             const [rows] = await this.pool.query(query, values);
-            return rows;
+            return rows.map(Game.fromRow);
 
         } catch(error){
             throw new Error(error);

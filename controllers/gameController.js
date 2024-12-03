@@ -54,18 +54,15 @@ class GameController {
      */
     async searchGame(req, res){
         try{
-            const { q: searchTerm } = req.query;
-            if (!searchTerm || searchTerm.trim() === '') {
-                return res.status(400).json({ message: 'Search term is required' });
-            }
+            const { query: searchTerm } = req.query;
 
             const games = await gameService.searchGame({ searchTerm });
 
             if (games.length === 0) {
-                return res.status(404).json({ message: 'No games found' });
+                return res.render('game', { games, message: 'No games found' });
             }
 
-            return res.status(200).json(games);
+            return res.render('game', { games });
         } catch(error){
             res.status(500).json({message: 'Internal server error'});
         }

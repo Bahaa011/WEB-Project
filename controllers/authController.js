@@ -1,5 +1,6 @@
 // controllers/authController.js
 const authService = require(`../services/authServices`);
+const User = require('../models/userModel');
 
 /**
  * Controller class for handling authentication requests.
@@ -15,18 +16,27 @@ class AuthController{
      * @returns {Object} JSON response indicating successful user registration.
      */
     async register(req, res){
-        try{
-            const {username, email, password} = req.body;
-
-            const newUser = await authService.register({username, email, password});
-            res.status(201).json({message: 'User registered successfully.',
-                user: newUser});
-        } catch(error) {
-            if(error.message.includes('Account with this')){
-                return res.status(409).json({message: error.message})
+        try {
+            // Process registration
+            const { username, email, password } = req.body;
+        
+            // Example: Check if the username already exists (you can use your DB query here)
+            const userExists = await User.findOne({ username: username });
+        
+            if (userExists) {
+              // If username exists, send a message
+              res.render('register', { message: 'Username already taken. Please choose another one.' });
+            } else {
+              // Register the user (you can add your registration logic here)
+              const newUser = await authService.register({username, email, password});
+              // If registration is successful
+              res.render('register', { message: 'Registration successful! Please log in.' });
             }
-            res.status(500).json({message: 'Internal server error'});
-        }
+          } catch (error) {
+            // Handle errors and send generic error message
+            console.error('Error during registration:', error);
+            res.render('register', { message: 'An error occurred. Please try again later.' });
+          }
     }
 
     /**

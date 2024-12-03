@@ -1,0 +1,107 @@
+/* Global Styles */
+body {
+    background-color: #121212;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Page Title */
+.page-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Search Form */
+.search-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    padding: 8px 12px;
+    font-size: 1rem;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+}
+
+.search-button {
+    padding: 8px 12px;
+    font-size: 1rem;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #218838;
+}
+
+/* Games Grid */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Small cards */
+    gap: 20px; /* More space between cards */
+    margin-top: 30px;
+}
+
+/* Game Cards */
+.game-card {
+    background-color: #222;
+    border-radius: 8px; /* Slight rounding for modern feel */
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 10px; /* Add internal padding for better layout */
+}
+
+.game-card:hover {
+    transform: translateY(-5px); /* Slight lift effect */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4); /* Deeper shadow on hover */
+}
+
+.card-img {
+    width: 100%;
+    height: 150px; /* Smaller image height */
+    object-fit: cover;
+    border-radius: 6px;
+    transition: transform 0.3s ease;
+}
+
+.card-img:hover {
+    transform: scale(1.1); /* Slight zoom effect */
+}
+
+/* Card Content */
+.card-body {
+    padding: 10px;
+}
+
+.card-title {
+    font-size: 1rem; /* Smaller title */
+    color: #ffc107;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.release-date,
+.developer {
+    font-size: 0.8rem;
+    color: #bbb;
+    margin: 5px 0;
+}
+
+.platform-badge {
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}

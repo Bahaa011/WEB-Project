@@ -1,5 +1,7 @@
 // models/gameModel.js
 
+const moment = require('moment');
+
 /**
  * Represents a Game with its details such as name, release date, rules, and developer.
  * @class
@@ -41,7 +43,7 @@ class Game{
             row.game_id,
             row.game_name,
             row.icon_url,
-            row.release_date,
+            moment(row.release_date).format('YYYY-MM-DD'),
             row.rules,
             row.developer
         )

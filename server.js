@@ -1,6 +1,8 @@
 // server.js
 const express = require('express');
 const dotenv = require('dotenv');
+const ejs = require("ejs");
+const path = require('path');
 
 const userRoutes = require('./routes/userRoutes');
 const gameRoutes = require(`./routes/gameRoutes`);
@@ -10,10 +12,15 @@ const commentRoutes = require(`./routes/commentRoutes`);
 const recordCategoryRoutes = require(`./routes/recordcategoryRoutes`);
 const gameVersionRoutes = require(`./routes/gameversionRoutes`);
 const authRoutes = require(`./routes/authRoutes`);
+const gameService = require('./services/gameService');
+
+const authController = require('./controllers/authController');
 
 dotenv.config();
 
 const app = express();  
+
+app.set('view engine', 'ejs');
 
 // Middleware
 app.use(express.json()); // Parses incoming JSON requests
@@ -28,10 +35,36 @@ app.use('/api/gameversions',gameVersionRoutes);
 app.use('/api/recordcategories',recordCategoryRoutes);
 app.use('/api/auth', authRoutes);
 
+const user = {
+  username: 'JohnDoe',
+    isAuthenticated: true,
+}
+
+app.use(express.static(path.join(__dirname, '/public')));
 
 // Root route
 app.get('/', (req, res) => {
-  res.send('Welcome to the Speedrun Website');
+  res.render('index', { user: user });
+});
+
+app.get('/games', async (req, res) => {
+  // Example games array, this should come from your database or an API
+  const games = await gameService.getAllGames();
+
+  // Pass the games data to the view
+  res.render('game', { title: 'Games', games: games });
+});
+
+app.get('/about', (req , res) => {
+  res.render('about');
+})
+
+app.post('/register', async (req,res) => {
+  await authController.register(req, res);
+});
+
+app.get('/register', (req, res) => {
+  res.render('register'); // Render register page when visiting /register
 });
 
 // 404 Handler

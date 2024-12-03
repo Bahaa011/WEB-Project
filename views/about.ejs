@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        /* Global Styles */
+        body {
+            background-color: #1c1c1c;
+            color: #ffffff;
+        }
+
+        h1,
+        h2 {
+            color: #ffd700;
+        }
+
+        .lead {
+            color: #aaaaaa;
+        }
+
+        .text-muted {
+            color: #d1d1d1;
+        }
+
+        .list-group-item {
+            background-color: #2c2c2c;
+            border: none;
+            color: #ffd700;
+        }
+
+        .list-group-item:hover {
+            background-color: #444444;
+            color: #ffffff;
+        }
+
+        .btn-warning {
+            background-color: #ffd700;
+            border: none;
+        }
+
+        .btn-warning:hover {
+            background-color: #f9c200;
+        }
+
+        .about-section {
+            margin-top: 50px;
+        }
+
+        .bold-text {
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        /* Key Features Section */
+        .key-features {
+            background-color: #252525;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .key-features ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .key-features li {
+            background-color: #2c2c2c;
+            border: none;
+            color: #ffd700;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .key-features li:hover {
+            background-color: #444444;
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header (optional include) -->
+    <%- include('partials/header') %>
+
+        <!-- Main Content -->
+        <div class="container my-5 about-section">
+            <div class="row">
+                <!-- About Section -->
+                <div class="col-12 text-center mb-4">
+                    <h1 class="bold-text">About Speedrun Hub</h1>
+                    <p class="lead text-muted">
+                        A platform for speedrunners to share their achievements, compete on leaderboards, and celebrate
+                        gaming excellence.
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Website Mission -->
+                <div class="col-md-6">
+                    <h2 class="bold-text">Our Mission</h2>
+                    <p>
+                        At <span class="bold-text">Speedrun Hub</span>, we aim to bring the global speedrunning
+                        community together. Our platform is
+                        designed to provide a seamless way for gamers to showcase their records, discover new games, and
+                        compete
+                        with others on dynamic leaderboards.
+                    </p>
+                    <p>
+                        Whether you’re a seasoned runner or new to the scene, <span class="bold-text">Speedrun
+                            Hub</span> provides the tools you need
+                        to track your progress, prove your skills, and connect with like-minded enthusiasts.
+                    </p>
+                </div>
+
+                <!-- Key Features -->
+                <div class="col-md-6 key-features">
+                    <h2 class="bold-text">Key Features</h2>
+                    <ul>
+                        <li><span class="bold-text">Comprehensive Leaderboards</span> for various games and categories
+                        </li>
+                        <li><span class="bold-text">User-friendly video proof submission system</span></li>
+                        <li><span class="bold-text">A library of speedrunning rules</span> and game-specific guidelines
+                        </li>
+                        <li><span class="bold-text">Discover games</span> and track your speedrun records</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <p class="lead">
+                        Join us and become a part of the growing speedrunning community!
+                    </p>
+                    <a href="/register" class="btn btn-warning btn-lg">Get Started</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer (optional include) -->
+        <%- include('partials/footer') %>
+
+            <!-- Bootstrap JS (optional) -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

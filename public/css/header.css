@@ -1,0 +1,68 @@
+/* Header styles */
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+}
+
+img {
+    width: 40px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo a {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.auth-links {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar {
+    padding: 10px;
+    margin-right: 15px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    width: 200px;
+}
+
+.auth-links a {
+    color: white;
+    margin-left: 15px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
