@@ -1,0 +1,105 @@
+body {
+    background-color: #1c1c1c;
+    color: #fff;
+}
+
+.game-details-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.game-details-header .game-icon {
+    width: 150px;
+    /* Adjusted size */
+    height: 80px;
+    /* Adjusted height */
+    object-fit: cover;
+    margin-right: 20px;
+    /* Space between the image and text */
+}
+
+.game-details-container {
+    background-color: #333333;
+    /* Background color for the details container */
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.game-details-container h1 {
+    color: #ffd700;
+    font-size: 2rem;
+}
+
+.game-details-container p {
+    color: #ddd;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.leaderboard-section h2 {
+    color: #ffd700;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.leaderboard-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.leaderboard-table th {
+    color: #ffd700;
+    text-align: left;
+    padding: 12px;
+    font-weight: bold;
+}
+
+.leaderboard-table td {
+    padding: 12px;
+    text-align: left;
+    color: #ddd;
+}
+
+.leaderboard-table tbody tr:nth-child(odd) {
+    background-color: #292929;
+}
+
+.leaderboard-table tbody tr:nth-child(even) {
+    background-color: #323232;
+}
+
+.leaderboard-table tbody tr:hover {
+    background-color: #444444;
+}
+
+.leaderboard-table a {
+    color: #ffd700;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.leaderboard-table a:hover {
+    text-decoration: underline;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #d1d1d1;
+}
+
+.footer a {
+    color: #ffd700;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}

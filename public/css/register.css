@@ -1,0 +1,110 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #1e1e2f;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.register-page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ff9900, #ffcc00);
+    color: #1e1e2f;
+}
+
+.register-form-container {
+    background-color: #2e2e42;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+}
+
+.register-form-heading {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #ffd700;
+}
+
+.input-label {
+    font-weight: bold;
+    color: #ffd700;
+    display: block;
+    /* Makes the label a block element */
+    margin-bottom: 8px;
+    /* Adds space between label and input */
+}
+
+.input-field {
+    background-color: #1e1e2f;
+    border: 1px solid #2e2e42;
+    border-radius: 8px;
+    color: white;
+    padding: 10px 40px 10px 10px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    width: 100%;
+    /* Ensures the input fields take up full width */
+}
+
+.register-button {
+    background-color: #ffd700;
+    color: #1e1e2f;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    width: 100%;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.register-button:hover {
+    background-color: #f9c200;
+}
+
+.footer-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #d1d1d1;
+}
+
+.footer-link a {
+    color: #ffd700;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer-link a:hover {
+    text-decoration: underline;
+}
+
+.password-toggle-container {
+    position: relative;
+}
+
+.password-toggle-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #ffd700;
+    font-size: 1.2rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.password-toggle-icon:hover {
+    color: #f9c200;
+    transform: scale(1.2);
+}
+
+.input-field::placeholder {
+    color: #aaa;
+    opacity: 1;
+}

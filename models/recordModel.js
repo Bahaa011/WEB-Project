@@ -1,5 +1,7 @@
 // models/recordModel.js
 
+const moment = require('moment');
+
 /**
  * Represents a record in the system.
  * @class
@@ -70,7 +72,7 @@ class Record {
             row.version_id,
             row.version_name,
             row.record_time,
-            row.date_submitted,
+            moment(row.created_at).format('YYYY-MM-DD HH:mm:ss'),
             row.video_url,
             row.status,
             row.notes,

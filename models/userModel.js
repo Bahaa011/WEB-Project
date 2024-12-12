@@ -1,5 +1,7 @@
 // models/userModel.js
 
+const moment = require('moment');
+
 /**
  * Represents a user in the system.
  * @class
@@ -53,7 +55,7 @@ class User {
             row.password,
             row.profile_picture_url,
             row.bio,
-            row.created_at,
+            moment(row.created_at).format('YYYY-MM-DD HH:mm:ss'),
             row.updated_at
         );
     }

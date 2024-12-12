@@ -1,5 +1,8 @@
 // controllers/userController.js
 const userService = require('../services/userService');
+const bcrypt = require(`bcrypt`);
+const jwt = require(`jsonwebtoken`);
+const cookie = require("cookie-parser");
 
 /**
  * Controller class for handling user-related HTTP requests.
@@ -53,18 +56,15 @@ class UserController {
      */
     async searchUser(req, res){
         try{
-            const { q: searchTerm } = req.query; // extract the search term after ?
-            if (!searchTerm || searchTerm.trim() === '') {
-                return res.status(400).json({ message: 'Search term is required' });
-            }
+            const { query: searchTerm } = req.query; // extract the search term after ?
 
             const users = await userService.searchUser({ searchTerm });
 
             if (users.length === 0) {
-                return res.status(404).json({ message: 'No users found' });
+                return res.render('user', { users, message: 'No users found' });
             }
 
-            return res.status(200).json(users);
+            return res.render('user', { users });
         } catch(error){
             if(error.message.includes('No users found')){
                 return res.status(404).json({message: error.message});
@@ -85,6 +85,10 @@ class UserController {
         try {
             const { username, email, password, profile_picture, bio } = req.body;
 
+            console.log(username)
+            console.log(email)
+            console.log(password)
+
             const newUser = await userService.createUser({ username, email, password, profile_picture, bio });
             res.status(201).json(newUser);
         } catch (error) {
@@ -92,6 +96,55 @@ class UserController {
                 return res.status(409).json({message: error.message});
             }
             res.status(500).json({ message: 'Internal server error' });
+        }
+    }
+
+    async login(req, res) {
+        try {
+          const { username : username, password } = req.body;
+          const [user] = await userService.searchUser({username});
+
+            console.log(user)
+
+          if (user.length === 0) {
+            return res.redirect("/login?error=invalid");
+          }
+          
+          console.log(password)
+          console.log(user)
+
+          const isMatch = await bcrypt.compare(password, user.password);
+          if (!isMatch) {
+            return res.redirect("/login?error=invalid");
+          }
+      
+          // Generate token
+          const payload = {
+            user: {
+              id: user.userId,
+              username: user.username,
+            },
+          };
+      
+          jwt.sign(
+            payload,
+            'mySecretKey',
+            { expiresIn: "1h" }, 
+            (err, token) => {
+              if (err) throw err;
+      
+             
+              res.cookie("token", token, {
+                httpOnly: true, 
+                secure: process.env.NODE_ENV === "production", 
+                maxAge: 3600000, //  (1 hour)
+              });
+      
+              res.redirect("/games");
+            }
+          );
+        } catch (error) {
+          res.status(500).json({ message: error?.message });
         }
     }
 

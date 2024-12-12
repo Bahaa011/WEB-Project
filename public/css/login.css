@@ -1,0 +1,127 @@
+/* login.css */
+
+/* General Body Styling */
+body {
+    background-color: #1e1e2f;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ff9900, #ffcc00);
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for Login Page */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Card Styling for Login Form */
+.login-card {
+    background-color: #2e2e42;
+    border-radius: 15px;
+    border: none;
+    padding: 30px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Card Title */
+.login-card-title {
+    color: #ffd700;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form Group Styling */
+.login-form-group {
+    margin-bottom: 20px;
+}
+
+/* Form Label Styling */
+.login-form-label {
+    color: #ffd700;
+    font-weight: 500;
+}
+
+/* Form Control Styling */
+.login-form-control {
+    background-color: #1e1e2f;
+    border: 2px solid #2e2e42;
+    color: white;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+}
+
+.login-form-control:focus {
+    border-color: #ffd700;
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+/* Button Styling */
+.login-btn {
+    background-color: #ffd700;
+    color: #1e1e2f;
+    border: 2px solid #ffd700;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 12px;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #1abc9c;
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Forgot Password Link Styling */
+.login-footer {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.login-footer-link {
+    color: #1abc9c;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-footer-link:hover {
+    color: #ffd700;
+}
+
+/* Password Field Icon Styling */
+.password-group {
+    position: relative;
+    width: 100%;
+}
+
+.password-toggle-icon {
+    position: absolute;
+    top: 65%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 16px; /* Make the icon smaller */
+    color: #ffd700;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.password-toggle-icon:hover {
+    color: #1abc9c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-card {
+        margin: 20px;
+    }
+}

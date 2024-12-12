@@ -3,6 +3,8 @@ const express = require('express');
 const dotenv = require('dotenv');
 const ejs = require("ejs");
 const path = require('path');
+const session = require('express-session');
+const bodyParser = require('body-parser');
 
 const userRoutes = require('./routes/userRoutes');
 const gameRoutes = require(`./routes/gameRoutes`);
@@ -11,10 +13,11 @@ const categoryRoutes = require(`./routes/categoryRoutes`);
 const commentRoutes = require(`./routes/commentRoutes`);
 const recordCategoryRoutes = require(`./routes/recordcategoryRoutes`);
 const gameVersionRoutes = require(`./routes/gameversionRoutes`);
-const authRoutes = require(`./routes/authRoutes`);
 const gameService = require('./services/gameService');
+const userService = require('./services/userService')
 
-const authController = require('./controllers/authController');
+const userController = require('./controllers/userController');
+const recordService = require('./services/recordService');
 
 dotenv.config();
 
@@ -24,6 +27,7 @@ app.set('view engine', 'ejs');
 
 // Middleware
 app.use(express.json()); // Parses incoming JSON requests
+app.use(bodyParser.json());
 
 // Routes
 app.use('/api/users', userRoutes);
@@ -33,19 +37,41 @@ app.use('/api/categories',categoryRoutes);
 app.use('/api/comments',commentRoutes);
 app.use('/api/gameversions',gameVersionRoutes);
 app.use('/api/recordcategories',recordCategoryRoutes);
-app.use('/api/auth', authRoutes);
 
-const user = {
-  username: 'JohnDoe',
-    isAuthenticated: true,
-}
+app.use(session({
+  secret: 'your-secret-key', // Replace with a strong secret key
+  resave: false,             // Prevents saving session if unmodified
+  saveUninitialized: false,  // Prevents storing uninitialized session
+  cookie: {
+      secure: false,         // Set to true if using HTTPS
+      httpOnly: true,        // Prevents client-side JavaScript from accessing cookies
+      maxAge: 3600000        // Session expiration time in milliseconds (1 hour)
+  }
+}));
+
+// Middleware to make session accessible in views (optional)
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  next();
+});
 
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.urlencoded({ extended: true }));
+
+app.get('/', (req, res) => res.redirect('/home'));
 
 // Root route
-app.get('/', (req, res) => {
-  res.render('index', { user: user });
+app.get('/home', (req, res) => {
+  res.render('index');
 });
+
+app.get('/users', async (req, res) => {
+  // Example games array, this should come from your database or an API
+  const users = await userService.getAllUsers();
+
+  // Pass the games data to the view
+  res.render('user', { title: 'Users', users: users });
+})
 
 app.get('/games', async (req, res) => {
   // Example games array, this should come from your database or an API
@@ -55,16 +81,42 @@ app.get('/games', async (req, res) => {
   res.render('game', { title: 'Games', games: games });
 });
 
+app.get('/games/:id', async (req, res) => {
+  const { id } = req.params;
+  const { categoryId, versionId } = req.body;
+  const game = await gameService.getGameById(id);
+
+  const leaderboard = await recordService.getLeaderboardByFilters(id, {categoryId, versionId});
+
+  res.render('gameDetails', {
+    game: game,
+    leaderboard: leaderboard // pass leaderboard data
+  });
+});
+
+app.get('/createGame', async (req, res) => {
+  res.render('create-game');
+});
+
 app.get('/about', (req , res) => {
   res.render('about');
 })
 
-app.post('/register', async (req,res) => {
-  await authController.register(req, res);
-});
+app.get('/help', (req , res) => {
+  res.render('help');
+})
 
 app.get('/register', (req, res) => {
   res.render('register'); // Render register page when visiting /register
+});
+
+app.get("/login",(req, res) => {
+  res.render("login");
+});
+
+app.get("/signout", (req, res) => {
+  res.clearCookie('token'); // Clear the authentication token cookie
+  res.redirect('/home'); // Redirect to the main page or login page
 });
 
 // 404 Handler

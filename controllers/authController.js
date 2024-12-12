@@ -1,6 +1,6 @@
 // controllers/authController.js
 const authService = require(`../services/authServices`);
-const User = require('../models/userModel');
+const userService = require('../services/userService');
 
 /**
  * Controller class for handling authentication requests.
@@ -21,8 +21,7 @@ class AuthController{
             const { username, email, password } = req.body;
         
             // Example: Check if the username already exists (you can use your DB query here)
-            const userExists = await User.findOne({ username: username });
-        
+            const userExists = await userService.searchUser({username});        
             if (userExists) {
               // If username exists, send a message
               res.render('register', { message: 'Username already taken. Please choose another one.' });

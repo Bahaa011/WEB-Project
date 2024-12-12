@@ -51,7 +51,7 @@ class GameService{
             if(rows.length === 0) throw new Error('Game not found');
             return Game.fromRow(rows[0]);
         } catch(error) {
-            throw new Error(error);
+            //throw new Error(error);
         }
     }
 
@@ -95,7 +95,7 @@ class GameService{
                 (`INSERT INTO games (game_name, icon_url, release_date, rules, developer)
                     VALUES(?,?,?,?,?)`,[name, icon, date, rules, dev]);
             
-            return {id: result.insertId, name, icon, date, rules, dev};
+            return Game.fromRow(result[0]);
         } catch(error) {
             throw new Error(error);
         }

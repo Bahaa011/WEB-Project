@@ -39,7 +39,7 @@ router.get('/:id', validateUserId, (req, res) => userController.getUserById(req,
  * @param {Object} req.body - User data
  * @returns {Object} The created user
  */
-router.post('/', validateUser, (req, res) => userController.createUser(req, res));
+router.post('/', (req, res) => userController.createUser(req, res));
 
 /**
  * @route PUT /:id
@@ -50,6 +50,15 @@ router.post('/', validateUser, (req, res) => userController.createUser(req, res)
  * @returns {Object} Updated user details
  */
 router.put('/:id', validateUpdateUser, (req, res) => userController.updateUser(req, res));
+
+/**
+ * @route POST /login
+ * @description Login a user
+ * @param {Object} req.body - User credentials for login
+ * @access Public
+ * @returns {Object} Authentication token or error message
+ */
+router.post('/login', (req, res) => userController.login(req, res));
 
 /**
  * @route DELETE /:id

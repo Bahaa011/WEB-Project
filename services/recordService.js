@@ -160,9 +160,10 @@ class RecordService{
                 throw new Error(`No records found`);
             }
     
-            return rows;
+            return rows.map(Record.fromRow) || [];
         } catch (error) {
-            throw new Error(error);
+            //throw new Error(error);
+            return [];
         }
     }    
     /**

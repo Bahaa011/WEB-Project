@@ -78,9 +78,7 @@ class UserService{
              WHERE username LIKE ?`;
 
             const values = [`%${searchTerm}%`];
-
             const [rows] = await this.pool.query(query, values);
-            if(rows.length === 0) throw new Error('No users found')
 
             return rows.map(User.fromRow);
         } catch(error){
@@ -128,6 +126,26 @@ class UserService{
         } catch(error) {
             throw new Error(error);
         }
+    }
+
+    async login(userData) {
+        const { username, password } = userData;
+        // Fetch user from database
+        const [rows] = await this.pool.query('SELECT * FROM users WHERE username = ?', [username]);
+
+        if (rows.length === 0) {
+            throw new Error('No Account exists with this username');
+        }
+
+        const user = rows[0]; // Extract the user object from the result rows
+
+        // Validate password
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            throw new Error('Invalid credentials');
+        }
+
+        return { user }; // Return token and user
     }
 
     /**

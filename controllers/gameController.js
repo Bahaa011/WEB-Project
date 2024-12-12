@@ -81,9 +81,9 @@ class GameController {
             const { name, icon, date, rules, dev } = req.body;
 
             const newGame = await gameService.createGame({ name, icon, date, rules, dev });
-            res.status(201).json(newGame);
+            res.redirect('/games');
         } catch (error) {
-            res.status(500).json({ message: 'Internal server error' });
+            res.status(500).render('create-game', { error: 'Failed to create the game. Please try again.' });
         }
     }
 
