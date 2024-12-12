@@ -4,7 +4,6 @@ const dotenv = require('dotenv');
 const ejs = require("ejs");
 const path = require('path');
 const session = require('express-session');
-const bodyParser = require('body-parser');
 
 const userRoutes = require('./routes/userRoutes');
 const gameRoutes = require(`./routes/gameRoutes`);
@@ -27,7 +26,6 @@ app.set('view engine', 'ejs');
 
 // Middleware
 app.use(express.json()); // Parses incoming JSON requests
-app.use(bodyParser.json());
 
 // Routes
 app.use('/api/users', userRoutes);
