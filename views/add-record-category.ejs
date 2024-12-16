@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Record Category</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Include Header -->
+    <%- include('partials/header') %>
+
+        <div class="container my-4">
+            <h2 class="page-title" style="color: #ffd700;">Add Record Category</h2>
+
+            <!-- Error Alert -->
+            <% if (typeof error !=='undefined' ) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= error %>
+                </div>
+                <% } %>
+
+                    <!-- Add Record Category Form -->
+                    <form action="/api/recordcategories" method="POST">
+                        <input type="hidden" name="recordId" value="<%= recordId %>">
+                        <div class="mb-3">
+                            <label for="category-select" class="form-label">Category</label>
+                            <select class="form-select" id="category-select" name="categoryId" required>
+                                <option value="" disabled selected>Select a category</option>
+                                <% if (categories && categories.length> 0) { %>
+                                    <% categories.forEach(category=> { %>
+                                        <option value="<%= category.id %>">
+                                            <%= category.name %>
+                                        </option>
+                                        <% }); %>
+                                            <% } else { %>
+                                                <option disabled>No categories available</option>
+                                                <% } %>
+                            </select>
+
+                        </div>
+
+                        <button type="submit" class="btn btn-warning">Add Category</button>
+                        <a href="/record-categories" class="btn btn-secondary ms-3">Cancel</a>
+                    </form>
+        </div>
+
+        <!-- Include Footer -->
+        <%- include('partials/footer') %>
+
+            <!-- Bootstrap JS -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

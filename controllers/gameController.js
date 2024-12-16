@@ -78,12 +78,13 @@ class GameController {
 
     async createGame(req, res) {
         try {
-            const { name, icon, date, rules, dev } = req.body;
+            const { name, date, rules, dev } = req.body;
+            let icon = req.file ? `/uploads/${req.file.filename}` : null;
 
             const newGame = await gameService.createGame({ name, icon, date, rules, dev });
             res.redirect('/games');
         } catch (error) {
-            res.status(500).render('create-game', { error: 'Failed to create the game. Please try again.' });
+            res.render('create-game', { error: 'Failed to create the game. Please try again.' });
         }
     }
 
@@ -122,12 +123,10 @@ class GameController {
         try {
             const id = parseInt(req.params.id, 10);
             const success = await gameService.deleteGame(id);
-            if (!success) {
-                return res.status(404).json({ message: 'Game not found' });
-            }
-            res.json({ message: 'Game deleted successfully' });
+            
+            res.redirect('/games')
         } catch (error) {
-            res.status(500).json({ message: 'Internal server error' });
+            res.redirect('/games')
         }
     }
 }

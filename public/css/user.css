@@ -1,0 +1,101 @@
+body {
+    background-color: #1c1c1c;
+    color: #fff;
+}
+
+.users-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.users-header h1 {
+    color: #ffd700;
+    font-size: 2.5rem;
+}
+
+.users-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.users-table th {
+    color: #ffd700;
+    text-align: left;
+    padding: 12px;
+    font-weight: bold;
+}
+
+.users-table td {
+    padding: 12px;
+    text-align: left;
+    color: #ddd;
+}
+
+.users-table tbody tr:nth-child(odd) {
+    background-color: #292929;
+}
+
+.users-table tbody tr:nth-child(even) {
+    background-color: #323232;
+}
+
+.users-table tbody tr:hover {
+    background-color: #444444;
+}
+
+.user-profile-link {
+    color: #ffd700;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.user-profile-link:hover {
+    text-decoration: underline;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #d1d1d1;
+}
+
+.footer a {
+    color: #ffd700;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.search-bar {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.search-bar input {
+    width: 80%;
+    padding: 10px;
+    border: 2px solid #ffd700;
+    border-radius: 5px;
+    background-color: #292929;
+    color: #fff;
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    background-color: #ffd700;
+    border: none;
+    border-radius: 5px;
+    color: #1c1c1c;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+    background-color: #e6b800;
+}

@@ -128,14 +128,14 @@ class RecordService{
             let baseQuery = `
                 SELECT r.record_id, r.user_id, u.username, r.game_id, g.game_name,
                     GROUP_CONCAT(DISTINCT c.category_name ORDER BY c.category_name SEPARATOR ', ') AS categories,
-                    r.version_id, gv.version_name, r.record_time, r.video_url, r.notes
+                    r.version_id, gv.version_name, r.record_time, r.status,r.video_url, r.notes
                 FROM records r
                 JOIN users u ON r.user_id = u.user_id
                 JOIN games g ON r.game_id = g.game_id
                 JOIN game_versions gv ON r.version_id = gv.version_id
                 LEFT JOIN record_categories rc ON r.record_id = rc.record_id
                 LEFT JOIN categories c ON rc.category_id = c.category_id
-                WHERE r.game_id = ? and r.status = 'Approved '`;
+                WHERE r.game_id = ? `;
     
             const queryParams = [gameId];
     

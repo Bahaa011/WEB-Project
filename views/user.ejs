@@ -6,109 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-        body {
-            background-color: #1c1c1c;
-            color: #fff;
-        }
-
-        .users-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .users-header h1 {
-            color: #ffd700;
-            font-size: 2.5rem;
-        }
-
-        .users-table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-
-        .users-table th {
-            color: #ffd700;
-            text-align: left;
-            padding: 12px;
-            font-weight: bold;
-        }
-
-        .users-table td {
-            padding: 12px;
-            text-align: left;
-            color: #ddd;
-        }
-
-        .users-table tbody tr:nth-child(odd) {
-            background-color: #292929;
-        }
-
-        .users-table tbody tr:nth-child(even) {
-            background-color: #323232;
-        }
-
-        .users-table tbody tr:hover {
-            background-color: #444444;
-        }
-
-        .user-profile-link {
-            color: #ffd700;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .user-profile-link:hover {
-            text-decoration: underline;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #d1d1d1;
-        }
-
-        .footer a {
-            color: #ffd700;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        .search-bar {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .search-bar input {
-            width: 80%;
-            padding: 10px;
-            border: 2px solid #ffd700;
-            border-radius: 5px;
-            background-color: #292929;
-            color: #fff;
-        }
-
-        .search-bar button {
-            padding: 10px 20px;
-            background-color: #ffd700;
-            border: none;
-            border-radius: 5px;
-            color: #1c1c1c;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .search-bar button:hover {
-            background-color: #e6b800;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/user.css">
 </head>
 
 <body>
@@ -143,6 +41,9 @@
                                     <th>Email</th>
                                     <th>Registration Date</th>
                                     <th>Profile</th>
+                                    <% if(loggedUser && loggedUser.id===1) { %>
+                                        <th>Delete</th>
+                                        <% } %>
                                 </tr>
                             </thead>
                             <tbody>
@@ -158,11 +59,18 @@
                                             <%= user.email %>
                                         </td>
                                         <td>
-                                            <%= user.date %>
+                                            <%= user.createdAt %>
                                         </td>
                                         <td>
-                                            <a href="/users/<%= user.id %>" class="user-profile-link">View Profile</a>
+                                            <a href="/users/<%= user.id %>" class="user-profile-link">View
+                                                Profile</a>
                                         </td>
+                                        <% if(loggedUser && loggedUser.id===1) { %>
+                                            <td>
+                                                <a href="/api/users/delete/<%= user.id%>" class="btn btn-danger"
+                                                    onclick="return confirmDeletion()">Delete</a>
+                                            </td>
+                                            <% } %>
                                     </tr>
                                     <% }); %>
                             </tbody>
@@ -173,6 +81,12 @@
 
         <!-- Footer -->
         <%- include('partials/footer') %>
+
+            <script>
+                function confirmDeletion() {
+                    return confirm("Are you sure you want to delete your profile? This action cannot be undone.");
+                }
+            </script>
 
 </body>
 

@@ -97,7 +97,7 @@ class GameService{
             
             return Game.fromRow(result[0]);
         } catch(error) {
-            throw new Error(error);
+            //throw new Error(error);
         }
     }
 

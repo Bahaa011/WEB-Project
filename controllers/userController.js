@@ -85,66 +85,45 @@ class UserController {
         try {
             const { username, email, password, profile_picture, bio } = req.body;
 
-            console.log(username)
-            console.log(email)
-            console.log(password)
-
             const newUser = await userService.createUser({ username, email, password, profile_picture, bio });
-            res.status(201).json(newUser);
+            res.redirect('/users');
         } catch (error) {
             if(error.message.includes(`Account with this`)){
-                return res.status(409).json({message: error.message});
+                return res.render(`register`, {error: error.message});
             }
-            res.status(500).json({ message: 'Internal server error' });
+            res.redirect('/register');
         }
     }
 
     async login(req, res) {
         try {
-          const { username : username, password } = req.body;
-          const [user] = await userService.searchUser({username});
+          const { username, password } = req.body;
+          const user = await userService.getUserByUsername(username);
 
-            console.log(user)
-
-          if (user.length === 0) {
-            return res.redirect("/login?error=invalid");
+          if (!user) {
+            return res.render('login',{error: 'Invalid credentials'});
           }
-          
-          console.log(password)
-          console.log(user)
 
           const isMatch = await bcrypt.compare(password, user.password);
           if (!isMatch) {
-            return res.redirect("/login?error=invalid");
+            return res.render('login',{error: 'Invalid password'});
           }
-      
-          // Generate token
-          const payload = {
-            user: {
-              id: user.userId,
-              username: user.username,
-            },
-          };
-      
-          jwt.sign(
-            payload,
-            'mySecretKey',
-            { expiresIn: "1h" }, 
-            (err, token) => {
-              if (err) throw err;
-      
-             
-              res.cookie("token", token, {
-                httpOnly: true, 
-                secure: process.env.NODE_ENV === "production", 
-                maxAge: 3600000, //  (1 hour)
-              });
-      
-              res.redirect("/games");
-            }
-          );
+
+        req.session.user = {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            bio: user.bio,
+            profile_picture: user.profile_picture,
+            password: user.password,
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt,
+        }; 
+
+            res.redirect("/games");
+
         } catch (error) {
-          res.status(500).json({ message: error?.message });
+            res.render(`login`, {error: error.message});
         }
     }
 
@@ -159,7 +138,9 @@ class UserController {
     async updateUser(req, res) {
         try {
             const id = parseInt(req.params.id, 10);
-            const { username, email, password, profile_picture, bio } = req.body;
+            const { username, email, password, bio } = req.body;
+
+            let profile_picture = req.file ? `/uploads/${req.file.filename}` : null;
 
             // check if there are fields to update
             if (!username && !email && !password && !profile_picture && !bio) {
@@ -169,12 +150,9 @@ class UserController {
             if (!success) {
                 return res.status(404).json({ message: 'User not found or no changes made' });
             }
-            res.json({ message: 'User updated successfully' });
+            res.redirect('/profile');
         } catch (error) {
-            if(error.message.includes(`already exists`)){
-                return res.status(409).json({message: error.message}); // handle descriptive errors
-            }
-            res.status(500).json({ message: 'Internal server error' });
+            res.render('edit-user', {error: error.message})
         }
     }
 
@@ -190,10 +168,8 @@ class UserController {
         try {
             const id = parseInt(req.params.id, 10);
             const success = await userService.deleteUser(id);
-            if (!success) {
-                return res.status(404).json({ message: 'User not found' });
-            }
-            res.json({ message: 'User deleted successfully' });
+              
+            res.redirect('/users');
         } catch (error) {
             res.status(500).json({ message: 'Internal server error' });
         }

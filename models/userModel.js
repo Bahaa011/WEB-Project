@@ -56,7 +56,7 @@ class User {
             row.profile_picture_url,
             row.bio,
             moment(row.created_at).format('YYYY-MM-DD HH:mm:ss'),
-            row.updated_at
+            moment(row.updated_at).format('YYYY-MM-DD HH:mm:ss'),
         );
     }
 }

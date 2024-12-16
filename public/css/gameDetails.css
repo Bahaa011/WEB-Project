@@ -12,17 +12,13 @@ body {
 
 .game-details-header .game-icon {
     width: 150px;
-    /* Adjusted size */
     height: 80px;
-    /* Adjusted height */
     object-fit: cover;
     margin-right: 20px;
-    /* Space between the image and text */
 }
 
 .game-details-container {
     background-color: #333333;
-    /* Background color for the details container */
     padding: 20px;
     border-radius: 8px;
     width: 100%;
@@ -39,11 +35,16 @@ body {
     margin-bottom: 10px;
 }
 
+.leaderboard-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .leaderboard-section h2 {
     color: #ffd700;
     margin-bottom: 15px;
     font-size: 1.5rem;
-    text-align: center;
 }
 
 .leaderboard-table {
@@ -85,6 +86,31 @@ body {
 
 .leaderboard-table a:hover {
     text-decoration: underline;
+}
+
+.add-record-button {
+    background-color: #ffd700;
+    color: #1c1c1c;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
+}
+
+.add-record-button:hover {
+    background-color: #e6c100;
+    transform: scale(1.05);
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    /* Adjust the gap between buttons */
 }
 
 .footer {

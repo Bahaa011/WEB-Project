@@ -2,6 +2,7 @@
 const userController = require(`../controllers/userController`);
 const express = require(`express`);
 const {validateUser, validateUpdateUser, validateUserId} = require(`../validators/userDTO`);
+const upload = require('../middleware/fileUpload');
 
 const router = express.Router();
 
@@ -49,7 +50,8 @@ router.post('/', (req, res) => userController.createUser(req, res));
  * @param {Object} req.body - Updated user data
  * @returns {Object} Updated user details
  */
-router.put('/:id', validateUpdateUser, (req, res) => userController.updateUser(req, res));
+//router.put('/:id', validateUpdateUser, (req, res) => userController.updateUser(req, res));
+router.post('/:id/edit', validateUpdateUser, upload.single('profile_picture'), (req, res) => userController.updateUser(req, res));
 
 /**
  * @route POST /login
@@ -67,7 +69,7 @@ router.post('/login', (req, res) => userController.login(req, res));
  * @access Public
  * @returns {Object} Success message
  */
-router.delete('/:id', validateUserId, (req, res) => userController.deleteUser(req, res));
+router.get('/delete/:id', validateUserId, (req, res) => userController.deleteUser(req, res));
 
 module.exports = router;
 

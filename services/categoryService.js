@@ -69,7 +69,7 @@ class CategoryService{
             if (rows.length === 0) throw new Error('Category not found');
             return rows.map(Category.fromRow);
         } catch(error){
-            throw new Error(error);
+            //throw new Error(error);
         }
     }
 

@@ -7,6 +7,8 @@
     <title>Games</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome CDN for the delete icon -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/game.css">
 </head>
 
@@ -18,49 +20,71 @@
             <!-- Title and Search Form -->
             <header class="header-section d-flex justify-content-between align-items-center">
                 <div>
-                    <h2 class="page-title" style="color: #ffd700; padding-left: 30px;">Games</h2>
+                    <h2 class="page-title">Games</h2>
                 </div>
                 <div class="d-flex align-items-center">
                     <form class="search-form me-3" action="/api/games/search" method="GET">
                         <input type="text" class="search-input" name="query" placeholder="Search games">
                         <button type="submit" class="search-button">Search</button>
                     </form>
-                    <a href="/createGame" class="btn btn-warning" style="margin-right: 30px;">Create Game</a>
+                    <% if (user && user.id===1) { %>
+                        <a href="/games/create" class="btn btn-warning" style="margin-right: 30px;">Create Game</a>
+                        <% } %>
                 </div>
             </header>
 
-            <!-- Games Section -->
-            <% if (games.length===0) { %>
-                <div class="alert alert-warning" role="alert">No games found.</div>
-                <% } else { %>
-                    <div class="games-grid">
-                        <% games.forEach(game=> { %>
-                            <div>
-                                <a href="/games/<%= game.id %>" class="text-decoration-none">
-                                    <div class="card">
-                                        <img src="<%= game.icon %>" class="card-img-top" alt="<%= game.name %>">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <%= game.name %>
-                                            </h5>
-                                            <p class="card-text">Released in: <%= game.date %>
-                                            </p>
-                                            <p class="card-text">Developed by: <%= game.dev %>
-                                            </p>
-                                            <span class="badge platform-badge">
-                                                <%= game.platform %>
-                                            </span>
-                                        </div>
+            <% if (typeof error !=='undefined' ) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= error %>
+                </div>
+                <% } %>
+
+                    <!-- Games Section -->
+                    <% if (games.length===0) { %>
+                        <div class="alert alert-warning" role="alert">No games found.</div>
+                        <% } else { %>
+                            <div class="games-grid">
+                                <% games.forEach(game=> { %>
+                                    <div>
+                                        <a href="/games/<%= game.id %>" class="text-decoration-none">
+                                            <div class="card position-relative">
+                                                <img src="<%= game.icon %>" class="card-img-top" alt="<%= game.name %>">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                        <%= game.name %>
+                                                    </h5>
+                                                    <p class="card-text">Released in: <%= game.date %>
+                                                    </p>
+                                                    <p class="card-text">Developed by: <%= game.dev %>
+                                                    </p>
+                                                    <span class="badge platform-badge">
+                                                        <%= game.platform %>
+                                                    </span>
+                                                </div>
+                                                <% if (user && user.id===1) { %>
+                                                    <!-- Delete Icon -->
+                                                    <a href="/api/games/<%= game.id %>/delete"
+                                                        class="delete-icon position-absolute bottom-0 end-0 p-2"
+                                                        onclick="return confirmDeletion()">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </a>
+                                                    <% } %>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
+                                    <% }); %>
                             </div>
-                            <% }); %>
-                    </div>
-                    <% } %>
+                            <% } %>
         </div>
 
         <!-- Include Footer -->
         <%- include('partials/footer') %>
+
+            <script>
+                function confirmDeletion() {
+                    return confirm("Are you sure you want to delete your profile? This action cannot be undone.");
+                }
+            </script>
 
             <!-- Bootstrap JS -->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

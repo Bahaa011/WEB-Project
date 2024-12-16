@@ -64,11 +64,26 @@ class CommentService{
     async getCommentsByRecordId(recordId){
         try{
             const [rows] = await this.pool.query
-            (`SELECT * FROM comments WHERE record_id = ?`,[recordId]);
+            (`SELECT 
+                comments.comment_id AS id,
+                comments.record_id,
+                comments.user_id,
+                users.username,
+                comments.comment_text,
+                comments.created_at,
+                comments.updated_at
+            FROM 
+                comments
+            INNER JOIN 
+                users 
+            ON 
+                comments.user_id = users.user_id
+            WHERE 
+                comments.record_id = ?;`,[recordId]);
             if (rows.length === 0) throw new Error('Comments not found');;
             return rows.map(Comment.fromRow);
         } catch(error) {
-            throw new Error(error);
+            //throw new Error(error);
         }
     }
 

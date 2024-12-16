@@ -56,14 +56,9 @@ class RecordCategoryController {
             const {recordId, categoryId} = req.body;
 
             const newRecord = await recordCategoryService.createRecordCategory({ recordId, categoryId });
-            res.status(201).json(newRecord);
+            res.redirect('/games');
         } catch (error) {
-            if(error.message.includes('id is invalid')){
-                return res.status(400).json({message: error.message});
-            } else if(error.message.includes('Record and Category')){
-                return res.status(400).json({message: error.message});
-            }
-            res.status(500).json({ message: 'Internal server error' });
+            res.redirect('/games');
         }
     }
 

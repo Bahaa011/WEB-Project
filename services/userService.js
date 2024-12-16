@@ -58,7 +58,7 @@ class UserService{
             if (rows.length === 0) throw new Error('User not found');
             return User.fromRow(rows[0]);
         } catch(error) {
-            throw new Error(error);
+            //throw new Error(error);
         }
     }
 
@@ -72,8 +72,8 @@ class UserService{
      */
     async searchUser({searchTerm}){
         try{
-            const query = `SELECT user_id AS id , username, email,
-             profile_picture_url, bio, created_at, updated_at 
+            const query = `SELECT user_id, username, email,
+             password, profile_picture_url, bio, created_at, updated_at 
              FROM users 
              WHERE username LIKE ?`;
 
@@ -126,26 +126,6 @@ class UserService{
         } catch(error) {
             throw new Error(error);
         }
-    }
-
-    async login(userData) {
-        const { username, password } = userData;
-        // Fetch user from database
-        const [rows] = await this.pool.query('SELECT * FROM users WHERE username = ?', [username]);
-
-        if (rows.length === 0) {
-            throw new Error('No Account exists with this username');
-        }
-
-        const user = rows[0]; // Extract the user object from the result rows
-
-        // Validate password
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            throw new Error('Invalid credentials');
-        }
-
-        return { user }; // Return token and user
     }
 
     /**
@@ -216,6 +196,17 @@ class UserService{
             throw new Error(error);
         }
     }
+
+    async getUserByUsername (username) {
+        try{
+            const query = 'SELECT * FROM users WHERE username = ?';
+            const [rows] = await this.pool.query(query, [username]);
+            if (rows.length === 0) throw new Error('Invalid credentials');
+            return User.fromRow(rows[0]) // Returns true if the username exists
+        } catch (error){
+            throw new Error(error);
+        }
+    };
 
     /**
      * Deletes a user from the database.

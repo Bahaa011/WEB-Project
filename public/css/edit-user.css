@@ -1,0 +1,67 @@
+html,
+body {
+    background-color: #1c1c1c;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.edit-user-container {
+    background-color: #2d2d2d;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 50%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.edit-user-container h2 {
+    color: #ffd700;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.edit-user-form-group label {
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.edit-user-form-group input,
+.edit-user-form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #2c2c2c;
+    color: #fff;
+}
+
+.edit-user-form-group input[type="file"] {
+    padding: 8px;
+}
+
+.edit-user-form-group button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    background-color: #ffd700;
+    color: #1c1c1c;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.edit-user-form-group button:hover {
+    background-color: #17a085;
+}
+
+.edit-user-form-group img {
+    width: 150px;
+    height: 150px;
+    margin-top: 10px;
+    border-radius: 8px;
+}

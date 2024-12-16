@@ -2,6 +2,7 @@
 const recordController = require(`../controllers/recordController`);
 const express = require(`express`);
 const {validateRecord, validateUpdateRecord, validateRecordId} = require(`../validators/recordDTO`);
+const upload = require('../middleware/fileUpload');
 
 const router = express.Router();
 
@@ -40,7 +41,7 @@ router.get('/:id/filter',validateRecordId,(req,res) => recordController.getLeade
  * @access Public
  * @returns {Object} The created record
  */
-router.post('/', validateRecord,(req, res) => recordController.createRecord(req, res));
+router.post('/', upload.single('url'),(req, res) => recordController.createRecord(req, res));
 
 /**
  * @route PUT /:id

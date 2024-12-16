@@ -17,23 +17,29 @@
         <div class="login-container">
             <div class="login-card">
                 <h3 class="login-card-title">Login</h3>
-                <form action="/api/users/login" method="post">
-                    <div class="login-form-group">
-                        <label for="username" class="login-form-label">Username</label>
-                        <input type="text" id="username" name="username" class="login-form-control"
-                            placeholder="Enter your username" required>
+
+                <% if (typeof error !=='undefined' ) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <%= error %>
                     </div>
-                    <div class="login-form-group password-group">
-                        <label for="password" class="login-form-label">Password</label>
-                        <input type="password" id="password" name="password" class="login-form-control"
-                            placeholder="Enter your password" required>
-                        <i id="togglePassword" class="fas fa-eye password-toggle-icon"></i>
-                    </div>
-                    <button type="submit" class="login-btn">Login</button>
-                </form>
-                <div class="login-footer">
-                    <small><a href="/forgot-password" class="login-footer-link">Forgot Password?</a></small>
-                </div>
+                    <% } %>
+                        <form action="/api/users/login" method="post">
+                            <div class="login-form-group">
+                                <label for="username" class="login-form-label">Username</label>
+                                <input type="text" id="username" name="username" class="login-form-control"
+                                    placeholder="Enter your username" required>
+                            </div>
+                            <div class="login-form-group password-group">
+                                <label for="password" class="login-form-label">Password</label>
+                                <input type="password" id="password" name="password" class="login-form-control"
+                                    placeholder="Enter your password" required>
+                                <i id="togglePassword" class="fas fa-eye password-toggle-icon"></i>
+                            </div>
+                            <button type="submit" class="login-btn">Login</button>
+                        </form>
+                        <div class="login-footer">
+                            <small><a href="/forgot-password" class="login-footer-link">Forgot Password?</a></small>
+                        </div>
             </div>
         </div>
 

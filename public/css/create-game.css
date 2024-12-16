@@ -1,0 +1,124 @@
+html,
+body {
+    background-color: #1c1c1c;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styles */
+header {
+    background-color: #333;
+    padding: 20px 0;
+}
+
+.create-games-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.create-games-logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.create-games-logo a {
+    font-size: 1.5rem;
+    color: #ffd700;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.create-games-nav {
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+.create-games-nav-item {
+    margin-left: 15px;
+}
+
+.create-games-nav-link {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.create-games-nav-link:hover {
+    color: #ffd700;
+}
+
+.create-games-actions a {
+    margin-left: 10px;
+}
+
+.create-games-social-icons a {
+    margin-left: 10px;
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+.create-games-social-icons a:hover {
+    color: #ffd700;
+}
+
+/* Game Form */
+.create-games-form-container {
+    background-color: #2d2d2d;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 50%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.create-games-form-container h2 {
+    color: #ffd700;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.create-games-form-group label {
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.create-games-form-group input,
+.create-games-form-group textarea,
+.create-games-form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #2c2c2c;
+    color: #fff;
+}
+
+.create-games-form-group input[type="file"] {
+    padding: 8px;
+}
+
+.create-games-form-group button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    background-color: #ffd700;
+    color: #1c1c1c;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.create-games-form-group button:hover {
+    background-color: #17a085;
+}

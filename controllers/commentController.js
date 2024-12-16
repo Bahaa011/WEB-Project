@@ -101,12 +101,9 @@ class CommentController {
 
             const newComment = await commentService.createComment({ recordId, userId, comment });
 
-            res.status(201).json(newComment);
+            res.redirect('/games');
         } catch (error) {
-            if(error.message.includes('is invalid')){
-                return res.status(404).json({message: error.message});
-            }
-            res.status(500).json({ message: 'Internal server error' });
+            res.redirect('/games');
         }
     }
 

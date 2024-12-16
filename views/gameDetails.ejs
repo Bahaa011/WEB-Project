@@ -8,113 +8,7 @@
         <%= game.name %> - Details
     </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-        body {
-            background-color: #1c1c1c;
-            color: #fff;
-        }
-
-        .game-details-header {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            margin-bottom: 20px;
-        }
-
-        .game-details-header .game-icon {
-            width: 150px;
-            /* Adjusted size */
-            height: 80px;
-            /* Adjusted height */
-            object-fit: cover;
-            margin-right: 20px;
-            /* Space between the image and text */
-        }
-
-        .game-details-container {
-            background-color: #333333;
-            /* Background color for the details container */
-            padding: 20px;
-            border-radius: 8px;
-            width: 100%;
-        }
-
-        .game-details-container h1 {
-            color: #ffd700;
-            font-size: 2rem;
-        }
-
-        .game-details-container p {
-            color: #ddd;
-            font-size: 1rem;
-            margin-bottom: 10px;
-        }
-
-        .leaderboard-section h2 {
-            color: #ffd700;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-            text-align: center;
-        }
-
-        .leaderboard-table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-
-        .leaderboard-table th {
-            color: #ffd700;
-            text-align: left;
-            padding: 12px;
-            font-weight: bold;
-        }
-
-        .leaderboard-table td {
-            padding: 12px;
-            text-align: left;
-            color: #ddd;
-        }
-
-        .leaderboard-table tbody tr:nth-child(odd) {
-            background-color: #292929;
-        }
-
-        .leaderboard-table tbody tr:nth-child(even) {
-            background-color: #323232;
-        }
-
-        .leaderboard-table tbody tr:hover {
-            background-color: #444444;
-        }
-
-        .leaderboard-table a {
-            color: #ffd700;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .leaderboard-table a:hover {
-            text-decoration: underline;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #d1d1d1;
-        }
-
-        .footer a {
-            color: #ffd700;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/gameDetails.css">
 </head>
 
 <body>
@@ -135,7 +29,7 @@
                             <%= game.dev %>
                         </strong></p>
                     <p>
-                        <%= game.notes %>
+                        <%= game.rules %>
                     </p>
                 </div>
             </div>
@@ -143,46 +37,143 @@
             <!-- Leaderboard Section -->
             <div class="leaderboard-section">
                 <h2>Leaderboard</h2>
-                <% if (leaderboard.length===0) { %>
-                    <p>No records found for this game.</p>
-                    <% } else { %>
-                        <table class="table leaderboard-table">
-                            <thead>
-                                <tr>
-                                    <th>Rank</th>
-                                    <th>Player</th>
-                                    <th>Time</th>
-                                    <th>Version</th>
-                                    <th>Date</th>
-                                    <th>Proof</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% leaderboard.forEach((record, index)=> { %>
-                                    <tr>
-                                        <td>#<%= index + 1 %>
-                                        </td>
-                                        <td>
-                                            <%= record.username %>
-                                        </td>
-                                        <td>
-                                            <%= record.time %>s
-                                        </td>
-                                        <td>
-                                            <%= record.versionName %>
-                                        </td>
-                                        <td>
-                                            <%= record.date %>
-                                        </td>
-                                        <td>
-                                            <a href="<%= record.url %>" target="_blank">View Proof</a>
-                                        </td>
-                                    </tr>
-                                    <% }); %>
-                            </tbody>
-                        </table>
+                <div class="button-container">
+                    <% if (user && user.id===1) { %>
+                        <!-- Add Version Button -->
+                        <a href="/addVersion/<%= game.id %>" class="add-record-button">Add Version</a>
+
+                        <!-- Add Category Button -->
+                        <a href="/addCategory/<%= game.id %>" class="add-record-button">Add Category</a>
                         <% } %>
+
+                            <!-- Add Record Button -->
+                            <a href="/addRecord/<%= game.id %>" class="add-record-button">Add Record</a>
+
+                </div>
             </div>
+
+            <% if (leaderboard.length===0) { %>
+                <p>No records found for this game.</p>
+                <% } else { %>
+                    <table class="table leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Player</th>
+                                <th>Time</th>
+                                <th>Version</th>
+                                <th>Categories</th>
+                                <th>Date</th>
+
+                                <% if (user && user.id===1) { %>
+                                    <th>Status</th>
+                                    <th>Approve</th>
+                                    <th>Reject</th>
+                                    <% } %>
+                                        <th>Add Category</th>
+                                        <th>Comments</th>
+                                        <th>Proof</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% let rank=0; %> <!-- Initialize rank counter -->
+                                <% leaderboard.forEach((record)=> { %>
+                                    <% if (user && user.id===1) { %> <!-- Admin: Show all records -->
+                                        <% rank++; %> <!-- Increment rank -->
+                                            <tr>
+                                                <td>#<%= rank %>
+                                                </td>
+                                                <td>
+                                                    <%= record.username %>
+                                                </td>
+                                                <td>
+                                                    <%= record.time %>s
+                                                </td>
+                                                <td>
+                                                    <%= record.versionName %>
+                                                </td>
+                                                <td>
+                                                    <%= record.categories %>
+                                                </td>
+                                                <td>
+                                                    <%= record.date %>
+                                                </td>
+                                                <td>
+                                                    <%= record.status %>
+                                                </td>
+                                                <td>
+                                                    <form action="/api/records/<%= record.id %>/approve" method="POST"
+                                                        style="display:inline;">
+                                                        <input type="hidden" name="gameId" value="<%= gameId %>">
+
+                                                        <button type="submit" class="btn btn-success">Approve</button>
+                                                    </form>
+                                                </td>
+                                                <td>
+                                                    <form action="/api/records/<%= record.id %>/reject" method="POST"
+                                                        style="display:inline;">
+                                                        <input type="hidden" name="gameId" value="<%= gameId %>">
+                                                        <button type="submit" class="btn btn-danger">Reject</button>
+                                                    </form>
+                                                </td>
+                                                <td>
+                                                    <a href="/record/category/<%= record.id %>/game/<%= game.id %>"
+                                                        class="btn btn-success" style="color: white;">Add</a>
+                                                </td>
+                                                <td>
+                                                    <a href="/comments?recordId=<%= record.id %>">View
+                                                        Comments</a>
+                                                </td>
+                                                <td>
+                                                    <a href="<%= record.url %>" target="_blank">View
+                                                        Proof</a>
+                                                </td>
+
+                                            </tr>
+                                            <% } else if (record.status==='Approved' ) { %>
+                                                <!-- Non-admin: Show approved records -->
+                                                <% rank++; %> <!-- Increment rank -->
+                                                    <tr>
+                                                        <td>#<%= rank %>
+                                                        </td>
+                                                        <td>
+                                                            <%= record.username %>
+                                                        </td>
+                                                        <td>
+                                                            <%= record.time %>s
+                                                        </td>
+                                                        <td>
+                                                            <%= record.versionName %>
+                                                        </td>
+                                                        <td>
+                                                            <%= record.categories %>
+                                                        </td>
+                                                        <td>
+                                                            <%= record.date %>
+                                                        </td>
+                                                        <% if(user && user.id===record.userId) { %>
+                                                            <td>
+                                                                <a href="/record/category/<%= record.id %>/game/<%= game.id %>"
+                                                                    class="btn btn-success"
+                                                                    style="color: white;">Add</a>
+                                                            </td>
+                                                            <% } else { %>
+                                                                <td></td>
+                                                                <% } %>
+                                                                    <td>
+                                                                        <a href="/comments?recordId=<%= record.id %>">View
+                                                                            Comments</a>
+                                                                    </td>
+                                                                    <td><a href="<%= record.url %>" target="_blank">View
+                                                                            Proof</a>
+                                                                    </td>
+                                                    </tr>
+                                                    <% } %>
+                                                        <% }); %>
+                        </tbody>
+
+                    </table>
+                    <% } %>
         </div>
 
         <!-- Footer -->

@@ -78,12 +78,9 @@ class CategoryController {
             const {gameId, name, desc} = req.body;
 
             const newCategory = await categoryService.createCategory({ gameId, name, desc });
-            res.status(201).json(newCategory);
+            res.redirect('/games');
         } catch (error) {
-            if (error.message.includes('Game id is invalid')) {
-                return res.status(400).json({ message: error.message });
-            }
-            res.status(500).json({ message: 'Internal server error' });
+            res.render('game', { error: 'Failed to create the game version. Please try again.' });
         }
     }
 

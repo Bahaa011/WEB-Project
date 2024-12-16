@@ -2,6 +2,7 @@
 const gameController = require(`../controllers/gameController`);
 const express = require(`express`);
 const {validateGame, validateUpdateGame, validateGameId} = require(`../validators/gameDTO`);
+const upload = require('../middleware/fileUpload');
 
 const router = express.Router();
 
@@ -39,7 +40,7 @@ router.get('/:id', validateGameId, (req, res) => gameController.getGamebyId(req,
  * @access Admin
  * @returns {Object} The created game
  */
-router.post('/', validateGame, (req, res) => gameController.createGame(req, res));
+router.post('/', upload.single('icon'), (req, res) => gameController.createGame(req, res));
 
 /**
  * @route PUT /:id
@@ -58,6 +59,6 @@ router.put('/:id', validateUpdateGame, (req, res) => gameController.updateGame(r
  * @access Public
  * @returns {Object} Success message
  */
-router.delete('/:id', validateGameId, (req, res) => gameController.deleteGame(req, res));
+router.get('/:id/delete', validateGameId, (req, res) => gameController.deleteGame(req, res));
 
 module.exports = router;

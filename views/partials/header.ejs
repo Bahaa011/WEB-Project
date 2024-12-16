@@ -10,7 +10,7 @@
     <div class="header-container">
         <!-- Logo -->
         <div class="logo">
-            <img src="/images/trophy.png" alt="logo">
+            <img src="/uploads/trophy.png" alt="logo">
             <a href="/">Speedrun Hub</a>
         </div>
 
@@ -26,15 +26,27 @@
 
         <!-- Actions -->
         <div class="actions">
-            <a href="/login" class="btn btn-outline-light btn-sm">Login</a>
-            <a href="/register" class="btn btn-light btn-sm">Sign Up</a>
+            <% if (!user) { %>
+                <a href="/login" class="btn btn-outline-light btn-sm">Login</a>
+                <a href="/register" class="btn btn-light btn-sm">Sign Up</a>
+                <% } else { %>
+                    <div class="d-flex align-items-center">
+                        <div class="profile-icon me-2">
+                            <a href="/profile"><i class="bi bi-person-circle" style="font-size: 2rem;"></i></a>
+                        </div>
+                        <span class="text-light me-3">Welcome, <%= user.username %></span>
+                        <a href="/logout" class="btn btn-outline-light btn-sm">Logout</a>
+                    </div>
+                    <% } %>
+        </div>
 
-            <!-- Social Media Icons -->
-            <div class="social-icons">
-                <a href="https://twitter.com" class="social-icon" target="_blank"><i class="bi bi-twitter"></i></a>
-                <a href="https://facebook.com" class="social-icon" target="_blank"><i class="bi bi-facebook"></i></a>
-                <a href="https://discord.com" class="social-icon" target="_blank"><i class="bi bi-discord"></i></a>
-            </div>
+
+
+        <!-- Social Media Icons -->
+        <div class="social-icons">
+            <a href="https://twitter.com" class="social-icon" target="_blank"><i class="bi bi-twitter"></i></a>
+            <a href="https://facebook.com" class="social-icon" target="_blank"><i class="bi bi-facebook"></i></a>
+            <a href="https://discord.com" class="social-icon" target="_blank"><i class="bi bi-discord"></i></a>
         </div>
     </div>
 </header>

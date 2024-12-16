@@ -55,6 +55,21 @@ body {
             color: #1abc9c;
         }
 
+        .profile-icon {
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+        
+        .profile-icon:hover {
+            transform: scale(1.2);
+        }
+        
+        .profile-icon a {
+            text-decoration: none;
+            color: white;
+        }
+        
+
         /* Navigation styling */
         .nav {
             display: flex;

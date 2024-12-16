@@ -68,7 +68,7 @@ class GameVersionService{
             if (rows.length === 0) throw new Error('Game version not found');
             return rows.map(GameVersion.fromRow);
         } catch(error) {
-            throw new Error(error);
+            //throw new Error(error);
         }
     }
 

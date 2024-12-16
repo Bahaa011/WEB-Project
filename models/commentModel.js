@@ -1,5 +1,7 @@
 // models/commentModel.js
 
+const moment = require('moment');
+
 /**
  * Represents a Comment associated with a speedrun record.
  * @class
@@ -14,10 +16,11 @@ class Comment{
      * @param {string} createdAt - The timestamp when the comment was created.
      * @param {string} updatedAt - The timestamp when the comment was last updated.
      */
-    constructor(id, recordId, userId, comment, createdAt, updatedAt){
+    constructor(id, recordId, userId, username,comment, createdAt, updatedAt){
         this.id = id;
         this.recordId = recordId;
         this.userId = userId;
+        this.username = username;
         this.comment = comment
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -41,9 +44,10 @@ class Comment{
             row.comment_id,
             row.record_id,
             row.user_id,
+            row.username,
             row.comment_text,
-            row.created_at,
-            row.updated_at
+            moment(row.created_at).format('YYYY-MM-DD HH:mm:ss'),
+            moment(row.updated_at).format('YYYY-MM-DD HH:mm:ss'),
         )
     }
 }

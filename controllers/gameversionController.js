@@ -77,12 +77,9 @@ class GameVersionController {
             const {gameId, name} = req.body;
             
             const newVersion = await gameversionService.createGameVersion({ gameId, name });
-            res.status(201).json(newVersion);
+            res.redirect('/games');
         } catch (error) {
-            if(error.message.includes('Game id is invalid')){
-                return res.status(400).json({ message: error.message });
-            }
-            res.status(500).json({ message: 'Internal server error' });
+            res.render('game', { error: 'Failed to create the game version. Please try again.' });
         }
     }
 

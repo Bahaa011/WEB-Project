@@ -1,4 +1,5 @@
 // controllers/recordController.js
+const gameService = require('../services/gameService');
 const recordService = require('../services/recordService');
 
 /**
@@ -77,18 +78,14 @@ class RecordController {
      */
     async createRecord(req, res) {
         try {
-            const {userId, gameId ,versionId, time, url, notes} = req.body;
+            const {userId, gameId ,versionId, time, notes} = req.body;
+            let url = req.file ? `/uploads/${req.file.filename}` : null;
 
             const newRecord = await recordService.createRecord
                 ({ userId, gameId, versionId, time, url, notes });
-            res.status(201).json(newRecord);
+            res.redirect('/games')
         } catch (error) {
-            if(error.message.includes('is invalid')){
-                return res.status(400).json({message: error.message});
-            } else if(error.message.includes('Game ID and version ID are not compatible')){
-                return res.status(400).json({message: error.message});
-            }
-            res.status(500).json({ message: 'Internal server error' });
+            res.render('game', {error: error.message});
         }
     }
 
@@ -130,16 +127,13 @@ class RecordController {
      * @returns {Object} JSON response indicating the approval result.
      */
     async approveRecord(req, res) {
-        const { id } = req.params;
         try {
+            const { id } = req.params;
             const result = await recordService.approveRecord(id);
 
-            return res.status(201).json({message: result.message});
+            return res.redirect('/games');
         } catch (error) {
-            if(error.message.includes('Record approval failed')){
-                return res.status(500).json({message: error.message});
-            }
-            return res.status(500).json({message: 'Internal server error'});
+            return res.redirect('/games', {error: error.message});
         }
     }
 
@@ -152,16 +146,13 @@ class RecordController {
      */
 
     async rejectRecord(req, res) {
-        const { id } = req.params;
         try {
+            const { id } = req.params;
             const result = await recordService.rejectRecord(id);
 
-            return res.status(201).json({message: result.message});
+            return res.redirect('/games');
         } catch (error) {
-            if(error.message.includes('Record rejection failed')){
-                return res.status(500).json({message: error.message});
-            }
-            return res.status(500).json({message: 'Internal server error'});
+            return res.redirect('/games', {error: error.message});
         }
     }
 
