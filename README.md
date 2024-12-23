@@ -41,13 +41,13 @@ Follow these steps to set up your own instance of Speed Hub:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Bahaa011/CSIS228-Project.git
+   git clone https://github.com/Bahaa011/WEB-Project.git
    ```
 
 2. Navigate to the project folder:
 
    ```bash
-   cd CSIS228-Project
+   cd WEB-Project
    ```
 
 3. Install dependencies:
