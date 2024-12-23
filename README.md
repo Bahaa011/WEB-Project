@@ -33,8 +33,13 @@ Follow these steps to set up your own instance of Speed Hub:
 - dotenv
 - express
 - express-validator
-- jsonwebtoken
+- express-session
 - mysql2
+- body-parser
+- moment
+- multer
+- ejs
+- path
 
 ### Steps
 
